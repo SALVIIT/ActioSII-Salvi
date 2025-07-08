@@ -1,0 +1,39 @@
+{
+  "id": "d39f4ff9-2830-4b38-853d-b53c081fd4b2",
+  "name": "ActioSII Salvi",
+  "publisher": "SALVI",
+  "version": "26.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {
+      "id": "ad9e9c15-b2dc-4763-9d87-ce1bff6bac28",
+      "name": "ActioSII",
+      "publisher": "Actio Procesos y Tecnologia",
+      "version": "1.10.45667.0"
+    }
+  ],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "25.0.0.0",
+  "idRanges": [
+    {
+      "from": 60700,
+      "to": 60749
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "14.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
