@@ -29,6 +29,50 @@ codeunit 60700 "ActioSII Subscribers"
             SetExcludeImmediateSupply(Rec, xRec);
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"ABPSII InformImmedSupplyHeader", OnBeforeInsertEvent, '', false, false)]
+    local procedure OnBeforeInsertABPSIIInformImmedSupplyHeader(var Rec: Record "ABPSII InformImmedSupplyHeader")
+    var
+        SalesInvoiceHeader: Record "Sales Invoice Header";
+        PurchInvHeader: Record "Purch. Inv. Header";
+        SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
+    begin
+        case Rec."Type" of
+            Rec."Type"::"Purchase Invoice":
+                begin
+                    // Buscar en Purchase Invoice Header
+                    if PurchInvHeader.Get(Rec."Document No.") then begin
+                        Rec.Validate("Business Posting Group", PurchInvHeader."Gen. Bus. Posting Group");
+                        exit;
+                    end;
+                end;
+            Rec."Type"::"Sales Invoice":
+                begin
+                    // Buscar en Sales Invoice Header
+                    if SalesInvoiceHeader.Get(Rec."Document No.") then begin
+                        Rec.Validate("Business Posting Group", SalesInvoiceHeader."Gen. Bus. Posting Group");
+                        exit;
+                    end;
+                end;
+            Rec."Type"::"Purchase Cr. Memo":
+                begin
+                    // Buscar en Purchase Cr.Memo Header
+                    if PurchCrMemoHeader.Get(Rec."Document No.") then begin
+                        Rec.Validate("Business Posting Group", PurchCrMemoHeader."Gen. Bus. Posting Group");
+                        exit;
+                    end;
+                end;
+            Rec."Type"::"Sales Cr. Memo":
+                begin
+                    // Buscar en Sales Cr.Memo Header
+                    if SalesCrMemoHeader.Get(Rec."Document No.") then begin
+                        Rec.Validate("Business Posting Group", SalesCrMemoHeader."Gen. Bus. Posting Group");
+                        exit;
+                    end;
+                end;
+        end;
+    end;
+
     local procedure SetDefaultPurchaseDocument(var PurchaseHeader: Record "Purchase Header")
     var
         Vendor: Record Vendor;
